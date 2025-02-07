@@ -21,14 +21,22 @@ void imprimirTablero() {
 
 bool verificarGanador(char jugador) {
     for (int i = 0; i < 3; i++) {
+        //Jugador 1
         if ((tablero[i][0] == jugador && tablero[i][1] == jugador && tablero[i][2] == jugador) ||
             (tablero[0][i] == jugador && tablero[1][i] == jugador && tablero[2][i] == jugador)) {
             return true;
         }
-        else {
-            std::cout << "Turno de O";
-            InteligenciaArtificial();
+
+        //Jugador 2 (falta cambiarlo por la IA)
+        if ((tablero[i][0] == jugador && tablero[i][1] == jugador && tablero[i][2] == jugador) ||
+            (tablero[0][i] == jugador && tablero[1][i] == jugador && tablero[2][i] == jugador)) {
+            return true;
         }
+        /*else {
+            std::cout << "Turno de O\n";
+            InteligenciaArtificial();
+        }*/
+
     }
     
     return false;
@@ -44,18 +52,19 @@ bool tableroLleno() {
 }
 
 
-int InteligenciaArtificial() {
-    int fila, columna;
-    srand(time(0));
 
-    do {
-        fila = rand() % 3;
-        columna = rand() % 3;
-    } while (tablero[fila][columna] != ' ');
-    
-    tablero[fila][columna] = 'O';
-
-}
+//int InteligenciaArtificial() {
+//    int fila, columna;
+//    srand(time(0));
+//
+//    do {
+//        fila = rand() % 3;
+//        columna = rand() % 3;
+//    } while (tablero[fila][columna] != ' ');
+//    
+//    tablero[fila][columna] = 'O';
+//
+//}
 
 
 
@@ -91,6 +100,7 @@ void jugar() {
         else {
             std::cout << "NO >:C.\n";
         }
+
     }
 }
 
