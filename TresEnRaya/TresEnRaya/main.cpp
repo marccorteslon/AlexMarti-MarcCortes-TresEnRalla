@@ -1,4 +1,6 @@
 ﻿#include <iostream>
+#include <time.h>
+#include <ctime>
 
 
 char tablero[3][3] = { {' ', ' ', ' '}, {' ', ' ', ' '}, {' ', ' ', ' '} };
@@ -23,11 +25,12 @@ bool verificarGanador(char jugador) {
             (tablero[0][i] == jugador && tablero[1][i] == jugador && tablero[2][i] == jugador)) {
             return true;
         }
+        else {
+            std::cout << "Turno de O";
+            InteligenciaArtificial();
+        }
     }
-    if ((tablero[0][0] == jugador && tablero[1][1] == jugador && tablero[2][2] == jugador) ||
-        (tablero[0][2] == jugador && tablero[1][1] == jugador && tablero[2][0] == jugador)) {
-        return true;
-    }
+    
     return false;
 }
 
@@ -41,6 +44,20 @@ bool tableroLleno() {
 }
 
 
+int InteligenciaArtificial() {
+    int fila, columna;
+    srand(time(0));
+
+    do {
+        fila = rand() % 3;
+        columna = rand() % 3;
+    } while (tablero[fila][columna] != ' ');
+    
+    tablero[fila][columna] = 'O';
+
+}
+
+
 
 void jugar() {
     char jugador = 'X';
@@ -51,7 +68,7 @@ void jugar() {
         std::cout << "Le toca a " << jugador << ". Elige casilla [1-3]: ";
         std::cin >> fila >> columna;
 
-        fila--;  // Ajustar a índice del array (1-3 → 0-2)
+        fila--;
         columna--;
 
         if (fila >= 0 && fila < 3 && columna >= 0 && columna < 3 && tablero[fila][columna] == ' ') {
