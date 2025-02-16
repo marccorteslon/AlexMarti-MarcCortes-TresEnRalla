@@ -66,7 +66,15 @@ bool tableroLleno() {
 //
 //}
 
-
+void IA() {
+    int fila, columna;
+    srand(time(NULL));
+    do {
+        fila = rand() % 3;
+        columna = rand() % 3;
+    } while (tablero[fila][columna] != ' ');
+    tablero[fila][columna] = 'O';
+}
 
 void jugar() {
     char jugador = 'X';
@@ -74,33 +82,38 @@ void jugar() {
 
     while (true) {
         imprimirTablero();
-        std::cout << "Le toca a " << jugador << ". Elige casilla [1-3]: ";
-        std::cin >> fila >> columna;
+        if (jugador == 'X') {
+            std::cout << "Le toca a " << jugador << ". Elige casilla [1-3]: ";
+            std::cin >> fila >> columna;
 
-        fila--;
-        columna--;
+            fila--;
+            columna--;
 
-        if (fila >= 0 && fila < 3 && columna >= 0 && columna < 3 && tablero[fila][columna] == ' ') {
-            tablero[fila][columna] = jugador;
-
-            if (verificarGanador(jugador)) {
-                imprimirTablero();
-                std::cout << "¡Ha ganado " << jugador << " !\n";
-                break;
+            if (fila >= 0 && fila < 3 && columna >= 0 && columna < 3 && tablero[fila][columna] == ' ') {
+                tablero[fila][columna] = jugador;
             }
-
-            if (tableroLleno()) {
-                imprimirTablero();
-                std::cout << "¡Empate!(90% empata, como en la vida, vuelve a probar)\n";
-                break;
+            else {
+                std::cout << "NO >:C.\n";
+                continue;
             }
-
-            jugador = (jugador == 'X') ? 'O' : 'X';
         }
         else {
-            std::cout << "NO >:C.\n";
+            IA();
         }
 
+        if (verificarGanador(jugador)) {
+            imprimirTablero();
+            std::cout << "¡Ha ganado " << jugador << " !\n";
+            break;
+        }
+
+        if (tableroLleno()) {
+            imprimirTablero();
+            std::cout << "¡Empate!(90% empata, como en la vida, vuelve a probar)\n";
+            break;
+        }
+
+        jugador = (jugador == 'X') ? 'O' : 'X';
     }
 }
 
